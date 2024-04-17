@@ -6,8 +6,6 @@ from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-api_key = st.text_input(label = ':hugging_face: HuggingFace API key:', type='password')
-
 def get_response(prompt, api_key):
     llm = HuggingFaceEndpoint(huggingfacehub_api_token=api_key, repo_id='codellama/CodeLlama-34b-Instruct-hf', temperature=0.1, max_new_tokens=512) 
     prompt = PromptTemplate.from_template(prompt)
@@ -60,6 +58,7 @@ else:
     dfs = st.session_state['dfs']
 
 with st.sidebar:
+    api_key = st.text_input(label = ':hugging_face: HuggingFace API key:', type='password')
     uploaded_df = st.file_uploader('Load your CSV file', type='csv')
     upload_btn = st.button('Load CSV')
     if uploaded_df:
