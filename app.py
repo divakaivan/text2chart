@@ -11,26 +11,8 @@ def get_response(prompt, api_key):
     prompt = PromptTemplate.from_template(prompt)
     llm_chain = LLMChain(llm=llm, prompt=prompt)
     response = llm_chain.predict()
-    print(f'{response=}')
-    # response = format_response(response)
     return response
 
-def format_response(response):
-    csv_line = response.find('read_csv')
-    if csv_line:
-        return_before_csv_line = response[0:csv_line].rfind('\n')
-        if return_before_csv_line == -1:
-            response_before = ''
-        else:
-            response_before = response[0:return_before_csv_line]
-        response_after = response[csv_line:]
-        return_after_csv_line = response_after.find('\n')
-        if return_after_csv_line == -1:
-            response_after = ''
-        else:
-            response_after = response_after[return_after_csv_line:]
-        response = response_before+response_after
-    return response
 
 def setup_code_query(df, selected_df):
     table_instruct = f"Use a dataframe called {selected_df} from data_file.csv with columns {', '.join(map(str, df.columns))}."
@@ -65,8 +47,8 @@ with st.sidebar:
         if upload_btn:
             dfs[uploaded_df.name[:-4]] = pd.read_csv(uploaded_df)
     selectbox_df = st.selectbox(
-        'Which dataset would you like to use?',
-        dfs.keys(),
+        label='Which dataset would you like to use?',
+        options=dfs.keys(),
         index=None,
         placeholder='Select a dataset...'
     )
@@ -75,7 +57,7 @@ with st.sidebar:
         selected_df = selectbox_df
     st.write('Selected:', selected_df)
 
-query = st.text_area(f'What chart would you like to make? (Active dataset: {selected_df})')
+query = st.text_area(f'What chart would you like to make? (Active dataset: {selected_df})', placeholder='Make sure you added your HuggingFace API key in the sidebar')
 run_btn = st.button('Run')
 
 if run_btn and query is not False:
