@@ -32,9 +32,9 @@ def setup_code_query(df, selected_df):
     """
     table_instruct = f"Use a dataframe called {selected_df} from data_file.csv with columns {', '.join(map(str, df.columns))}."
     for col in df.columns:
-        if col.lower() in ['year', 'date', 'years', 'dates', 'month']:
-            table_instruct += f"The column '{col}' has date values."
-        elif len(df[col].unique()) < 10 and df.dtypes[col] == '0':
+        # if col.lower() in ['year', 'date', 'years', 'dates', 'month']:
+            # table_instruct += f"The column '{col}' has date values."
+        if len(df[col].unique()) < 10 and df.dtypes[col] == '0':
             table_instruct += f"\nThe column '{col}' has categorical values '{', '.join(map(str, df[col].unique()))}'."
         elif df.dtypes[col] == 'int64' or df.dtypes[col] == 'float64':
             table_instruct += f"\nThe column '{col}' is type {df.dtypes[col]} and contains numerical values."
