@@ -95,10 +95,10 @@ if run_btn and query is not False:
                 answer = chart_code + response
                 plt_area = st.empty()
                 plt_area.pyplot(exec(answer))
-                st.write('Code used for graph:')
+                st.write('Code used for chart:')
                 st.code(response)
             except Exception as e:
-                st.write('Code used for graph:')
+                st.write('Code used for chart:')
                 st.code(response)
                 st.error(f'Oops! :sweat: There was an error: {e}')
 
