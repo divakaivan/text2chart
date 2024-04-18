@@ -32,7 +32,9 @@ def setup_code_query(df, selected_df):
     """
     table_instruct = f"Use a dataframe called {selected_df} from data_file.csv with columns {', '.join(map(str, df.columns))}."
     for col in df.columns:
-        if len(df[col].unique()) < 10 and df.dtypes[col] == '0':
+        if col.lower() in ['year', 'date', 'years', 'dates', 'month']:
+            table_instruct += f"The column '{col}' has date values."
+        elif len(df[col].unique()) < 10 and df.dtypes[col] == '0':
             table_instruct += f"\nThe column '{col}' has categorical values '{', '.join(map(str, df[col].unique()))}'."
         elif df.dtypes[col] == 'int64' or df.dtypes[col] == 'float64':
             table_instruct += f"\nThe column '{col}' is type {df.dtypes[col]} and contains numerical values."
@@ -72,7 +74,7 @@ with st.sidebar:
         selected_df = selectbox_df
     st.write('Selected:', selected_df)
 
-query = st.text_area(f'What chart would you like to make? (Active dataset: {selected_df})', placeholder='Make sure you added your HuggingFace API key in the sidebar')
+query = st.text_area(f'What chart would you like to make? (Active dataset: {selected_df})', placeholder='Before you run queries, please, add your HuggingFace API key in the sidebar')
 run_btn = st.button('Run')
 
 if run_btn and query is not False:
