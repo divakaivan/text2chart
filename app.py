@@ -97,6 +97,8 @@ if run_btn and query is not False:
                 st.write('Generated code:')
                 st.code(response)
             except Exception as e:
+                st.write('Generated code:')
+                st.code(response)
                 st.error(f'Oops! :sweat: There was an error: {e}')
 
 df_shot_tabs = st.tabs(dfs.keys())
