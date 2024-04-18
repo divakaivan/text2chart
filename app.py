@@ -41,6 +41,7 @@ def setup_code_query(df, selected_df):
     table_instruct += """
     Add a title.
     Label the x and y axes appropriately.
+    If the query involves categorical values, make sure to differentiate them with different colors and add a proper legend.
     Do not use the 'c' argument in the plot function, instead use 'color' and only pass color names like 'green', 'red', 'yellow', 'blue', 'purple'.
     Use Python version 3.10 and generate a script using the dataframe {} to graph the following: 
     """.format(selected_df)
