@@ -96,10 +96,10 @@ if run_btn and query is not False:
                 plt_area = st.empty()
                 plt_area.pyplot(exec(answer))
                 st.write('Code used for chart:')
-                st.code(response)
+                st.text(response) #st.code() gives error
             except Exception as e:
                 st.write('Code used for chart:')
-                st.code(response)
+                st.text(response)
                 st.error(f'Oops! :sweat: There was an error: {e}')
 
 df_shot_tabs = st.tabs(dfs.keys())
