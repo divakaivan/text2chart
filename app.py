@@ -8,7 +8,7 @@ from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 def get_response(prompt, api_key):
-    """Get response from the LLM given a prompt and huggingface api key."""
+    """Get response from the LLM given a prompt and huggingface api key.""" # google/codegemma-7b-it-GGUF codellama/CodeLlama-34b-Instruct-hf
     llm = HuggingFaceEndpoint(huggingfacehub_api_token=api_key, repo_id='codellama/CodeLlama-34b-Instruct-hf', temperature=0.1) 
     prompt = PromptTemplate.from_template(prompt)
     llm_chain = LLMChain(llm=llm, prompt=prompt)
@@ -99,8 +99,8 @@ if run_btn and query is not False:
                 st.text(response) #st.code() gives error
             except Exception as e:
                 st.write('Code used for chart:')
-                st.text(response)
                 st.error(f'Oops! :sweat: There was an error: {e}')
+                st.text(response)
 
 df_shot_tabs = st.tabs(dfs.keys())
 for i, tab in enumerate(df_shot_tabs): 
