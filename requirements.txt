@@ -4,3 +4,5 @@ matplotlib
 streamlit
 langchain
 huggingface_hub
+langchain-community 
+langchain-core
